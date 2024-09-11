@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Personal</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header>
+        <h1>Mi Portafolio</h1>
+        <nav>
+            <ul>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#habilidades">Habilidades</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Secciones como Proyectos, Habilidades, Contacto, etc. -->
+    
+    <section id="proyectos">
+        <h2>PROYECTOS</h2>
+        <ol>
+            <br>
+            <li>Paginas web para tiendas de barrio</li>
+            <br>
+            <li>Sistema de inscripciones para una institucion de convenio</li>
+            <br>
+            <li>Pagina web para un veterinaria</li>
+            <br>
+            <li>Sistema de compras en linea para un restaurante</li>
+            <br>
+            <li>Aplicacion para un salon de belleza</li>
+        </ol>
+        <img src="" alt="">
+    </section>
+
+    <section id="habilidades">
+        <h2>HABILIDADES</h2>
+        <ul>
+            <li>Idioma ingles B2</li>
+            <br>
+            <li>Habilidades blandas, necesarias para el liderazgo</li>
+            <br>
+            <li>Contabilidad en general</li>
+            <br>
+            <li>Enseñanza en instituciones fiscales como colegios e institutos</li>
+            <br>
+            <li>Buen manejo de la palabra</li>
+        </ul>
+    </section>
+
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <form id="contactForm" action="enviar.php" method="POST">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" required></textarea>
+            
+            <button type="submit">Enviar</button>
+        </form>
+        <p id="resultado"></p>
+    </section>
+
+    <form id="contactForm" action="enviar.php" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" required></textarea>
+        
+        <button type="submit">Enviar</button>
+    </form>
+    
+
+    <footer>
+        <p>&copy; 2024 Luis Porfirio Quispe Choque</p>
+    </footer>
+
+    <!-- código JavaScript aquí -->
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const mensaje = document.getElementById('mensaje').value;
+
+            const data = {
+                nombre: nombre,
+                email: email,
+                mensaje: mensaje
+            };
+
+            // Simulación de envío de datos
+            fetch('send_mail.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `nombre=${encodeURIComponent(nombre)}&email=${encodeURIComponent(email)}&mensaje=${encodeURIComponent(mensaje)}`
+            })
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById('resultado').innerText = result;
+                document.getElementById('contactForm').reset();
+            })
+            .catch(error => {
+                document.getElementById('resultado').innerText = "Hubo un error. Inténtalo de nuevo.";
+            });
+        });
+    </script>
+</body>
+</html>
+
+
